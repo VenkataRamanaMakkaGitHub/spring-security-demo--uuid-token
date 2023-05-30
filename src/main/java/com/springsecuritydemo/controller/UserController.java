@@ -33,7 +33,6 @@ public class UserController {
         user.setMail(userDto.getMail());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()).toString());
         user.setToken(UUID.randomUUID().toString());
-        user.setRole("USER");
         userRepo.save(user);
         return "Done";
     }

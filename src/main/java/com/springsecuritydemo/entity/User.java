@@ -36,25 +36,14 @@ public class User implements UserDetails {
     @Column
     private String token;
 
-    @Column
-    private String role;
-
-    @Transient
-    @JsonIgnore
-    private List<GrantedAuthority> authorities;
-
-
     public User(User user) {
         mail = user.getMail();
         password= user.getPassword();
-        authorities= Arrays.stream(user.getRole().split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return Collections.singleton(new SimpleGrantedAuthority("USER"));
     }
 
     @Override
